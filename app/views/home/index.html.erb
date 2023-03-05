@@ -1,0 +1,61 @@
+<h1>Generate Text</h1>
+
+<button id="myButton">Click me!</button>
+<div id="result" style="display: none;">
+  <div>
+    <h2>Tópico:</h2>
+    <h3 id="topic"></h3>
+  </div>
+  <h2>Construções Gramaticais:</h2>
+  <ul id="constructions"></ul>
+</div>
+
+
+
+<style>
+  /* CSS for the loading animation */
+  .spinner {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3498db;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+  /* Hide the spinner by default */
+  .spinner.hidden {
+    display: none;
+  }
+</style>
+
+
+<script>
+  const button = document.querySelector("#myButton");
+  const responseDiv = document.querySelector("#result");
+  const topicDiv = document.querySelector("#topic");
+  const constructionsList = document.querySelector("#constructions");
+
+  button.addEventListener("click", function() {
+    responseDiv.style.display = "none";
+    responseDiv.classList.add("spinner");
+
+    fetch("/generate", {method: "POST"})
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        console.log("================")
+        console.log(data.constructions)
+        // Access the 'text' key in the JSON response\
+        responseDiv.style.display = "block";
+        topicDiv.textContent = data.topic;
+        constructionsList.innerHTML = data.constructions.filter(str => str.trim() !== "").map(str => `<li>${str}</li>`).join('');
+        responseDiv.classList.remove("spinner");
+      });
+  });
+</script>
