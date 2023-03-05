@@ -6,8 +6,8 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install
 COPY . .
 RUN rails db:create db:migrate
-RUN rake task themes
-RUN rake task import_grammatical_constructions
+RUN rake themes
+RUN rake import_grammatical_constructions
 EXPOSE 3000
 #
 CMD ["rails", "server", "-b", "0.0.0.0"]
