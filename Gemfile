@@ -47,6 +47,7 @@ gem "bootsnap", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
+gem 'nokogiri', '1.11.7'
 
 gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
 gem 'pry-byebug'
