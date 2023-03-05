@@ -56,6 +56,9 @@
         topicDiv.textContent = data.topic;
         constructionsList.innerHTML = data.constructions.filter(str => str.trim() !== "").map(str => `<li>${str}</li>`).join('');
         responseDiv.classList.remove("spinner");
-      });
+      }).catch(error => {
+      console.error(error);
+      responseDiv.textContent = "An error occurred while generating the text.";
+    });;
   });
 </script>
