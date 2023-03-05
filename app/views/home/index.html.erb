@@ -1,36 +1,32 @@
-<h1>日本語の作文提案ジェネレータ</h1>
+<div class="container">
+  <h1>日本語の作文提案ジェネレータ /<br> Gerador de Sugestões de Redações em Japonês</h1>
 
-<button id="myButton">Click me!</button>
-<div id="result" style="display: none;">
-  <div>
-    <h2>Tópico:</h2>
-    <h3 id="topic"></h3>
+  <button id="myButton">Gerar!</button>
+  <div id="result" style="display: none;">
+    <div>
+      <h2>Tópico:</h2>
+      <h3 id="topic"></h3>
+    </div>
+    <h2>Possíveis Construções Gramaticais:</h2>
+    <ul id="constructions"></ul>
   </div>
-  <h2>Construções Gramaticais:</h2>
-  <ul id="constructions"></ul>
 </div>
 
 
 
 <style>
-  /* CSS for the loading animation */
-  .spinner {
-    border: 16px solid #f3f3f3;
-    border-top: 16px solid #3498db;
-    border-radius: 50%;
-    width: 120px;
-    height: 120px;
-    animation: spin 2s linear infinite;
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
   }
 
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-
-  /* Hide the spinner by default */
-  .spinner.hidden {
-    display: none;
+  .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   }
 </style>
 
@@ -43,19 +39,18 @@
 
   button.addEventListener("click", function() {
     responseDiv.style.display = "none";
-    responseDiv.classList.add("spinner");
 
     fetch("/generate", {method: "POST"})
       .then(response => response.json())
       .then(data => {
         console.log(data)
         console.log("================")
-        console.log(data.constructions)
+        console.log(data.construction)
         // Access the 'text' key in the JSON response\
         responseDiv.style.display = "block";
         topicDiv.textContent = data.topic;
-        constructionsList.innerHTML = data.constructions.filter(str => str.trim() !== "").map(str => `<li>${str}</li>`).join('');
-        responseDiv.classList.remove("spinner");
+        constructionsList.innerHTML = data.construction.map(([construct, expl]) => `<li>${construct} ${expl}</li>`).join('');
+
       }).catch(error => {
       console.error(error);
       responseDiv.textContent = "An error occurred while generating the text.";
