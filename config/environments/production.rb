@@ -90,4 +90,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.hosts << "japaneseessaysuggestiongenerator-antoniofqn.b4a.run"
+  config.hosts << "node04a.containers.back4app.com"
 end
