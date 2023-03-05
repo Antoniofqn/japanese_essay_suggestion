@@ -8,6 +8,7 @@ class HomeController < ApplicationController
     @theme = Theme.all.sample
     @constructions = GrammaticalConstruction.all.sample(4).map { |construction| [construction.construction, "(#{construction.explanation})"] }
 
+
     render json: { topic: @theme.title, construction: @constructions}
   end
 end
