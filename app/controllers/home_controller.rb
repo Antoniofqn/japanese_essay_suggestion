@@ -11,9 +11,13 @@ class HomeController < ApplicationController
     result = OpenaiService.new.generate_text(prompt)
 
     puts result
+    puts "++++++++++++++++++++++++++++++++++"
+    binding.pry
     topic = result["choices"][0]["text"].match(/Tópico:\s*(.*?)\n/m)[1]
-    constructions = result["choices"][0]["text"].scan(/^\d+\.\s*(.*?)\s*\((.*?)\)/m).map {|match| "#{match[0]} (#{match[1]})"}.drop(4)
+    constructions = constructions = result["choices"][0]["text"].scan(/^\d+\.\s*(.*?)\s*\((.*?)\)/m).map {|match| "#{match[0]} (#{match[1]})"}
 
+    puts "+++++++++++++++++++++++++++"
+    puts topic
     puts constructions
 
     render json: { topic: topic, constructions: constructions }
