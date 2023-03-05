@@ -12,7 +12,7 @@ class HomeController < ApplicationController
 
     puts result
     puts "++++++++++++++++++++++++++++++++++"
-    binding.pry
+
     topic = result["choices"][0]["text"].match(/Tópico:\s*(.*?)\n/m)[1]
     constructions = constructions = result["choices"][0]["text"].scan(/^\d+\.\s*(.*?)\s*\((.*?)\)/m).map {|match| "#{match[0]} (#{match[1]})"}
 
