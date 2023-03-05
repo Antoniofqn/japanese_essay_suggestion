@@ -1,0 +1,2 @@
+class GrammaticalConstruction < ApplicationRecord
+end
